@@ -3,16 +3,23 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>My Portfolio | University Student</title>
+    <title>My Portfolio | Racing Style</title>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Titillium+Web:ital,wght@0,300;0,400;0,700;0,900;1,700&display=swap" rel="stylesheet">
+
     <style>
         /* --- CSS Variables & Reset --- */
         :root {
-            --text-main: #333333;
-            --text-light: #666666;
-            --accent-color: #2c3e50; /* 知的なネイビー */
-            --accent-light: #eef2f5;
-            --bg-color: #ffffff;
-            --font-base: "Helvetica Neue", Arial, "Hiragino Kaku Gothic ProN", "Hiragino Sans", Meiryo, sans-serif;
+            /* F1 Inspired Colors */
+            --f1-red: #e10600;       /* あの鮮烈な赤 */
+            --f1-black: #15151e;     /* ダークな背景 */
+            --f1-dark-gray: #38383f; /* カード背景 */
+            --f1-light-gray: #d0d0d2;/* テキスト色 */
+            --f1-white: #ffffff;
+            
+            --font-base: "Titillium Web", "Helvetica Neue", Arial, sans-serif;
         }
 
         * {
@@ -23,254 +30,337 @@
 
         body {
             font-family: var(--font-base);
-            color: var(--text-main);
-            background-color: var(--bg-color);
-            line-height: 1.8;
+            color: var(--f1-white);
+            background-color: var(--f1-black); /* 背景を黒に */
+            line-height: 1.6;
             letter-spacing: 0.05em;
         }
 
         a {
             text-decoration: none;
             color: inherit;
-            transition: opacity 0.3s;
+            transition: all 0.3s;
         }
 
         a:hover {
-            opacity: 0.7;
+            color: var(--f1-red);
         }
 
         /* --- Layout Utilities --- */
         .container {
-            max-width: 1000px;
+            max-width: 1200px; /* 少しワイドに */
             margin: 0 auto;
             padding: 0 20px;
         }
 
         section {
-            padding: 80px 0;
+            padding: 100px 0;
+            border-bottom: 1px solid #333; /* セクション区切り線 */
         }
 
+        /* タイトルデザイン: 右側に赤いライン + 斜体 */
         .section-title {
-            font-size: 2rem;
-            margin-bottom: 40px;
-            text-align: center;
-            font-weight: 300;
-            letter-spacing: 0.1em;
-            color: var(--accent-color);
+            font-size: 3rem;
+            margin-bottom: 60px;
+            text-transform: uppercase; /* 大文字固定 */
+            font-weight: 900;          /* 極太 */
+            font-style: italic;        /* 斜体でスピード感 */
+            display: inline-block;
+            border-right: 15px solid var(--f1-red); /* F1ロゴのようなアクセント */
+            padding-right: 20px;
+            line-height: 1;
         }
 
         .section-title span {
             display: block;
-            font-size: 0.9rem;
-            color: var(--text-light);
+            font-size: 1rem;
+            color: var(--f1-red);
+            font-weight: 700;
+            font-style: normal;
             margin-top: 5px;
-            font-weight: normal;
+            letter-spacing: 0.2em;
         }
 
         /* --- Header --- */
         header {
-            height: 70px;
+            height: 80px;
             display: flex;
             align-items: center;
             justify-content: space-between;
             position: sticky;
             top: 0;
-            background-color: rgba(255, 255, 255, 0.95);
-            backdrop-filter: blur(5px);
+            background-color: var(--f1-red); /* ヘッダーを赤に */
             z-index: 100;
-            box-shadow: 0 1px 5px rgba(0,0,0,0.05);
+            box-shadow: 0 4px 10px rgba(0,0,0,0.3);
         }
 
         .logo {
-            font-weight: bold;
-            font-size: 1.2rem;
-            color: var(--accent-color);
+            font-weight: 900;
+            font-size: 1.8rem;
+            font-style: italic;
+            color: #fff;
+            letter-spacing: -0.05em; /* 文字を詰めてロゴっぽく */
         }
 
         nav ul {
             display: flex;
             list-style: none;
-            gap: 30px;
+            gap: 40px;
         }
 
-        nav li {
-            font-size: 0.9rem;
+        nav li a {
+            font-size: 1rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            color: #fff;
+        }
+        
+        nav li a:hover {
+            color: #000; /* ホバー時は黒文字へ */
         }
 
         /* --- Hero Section --- */
         #hero {
-            height: 80vh;
+            height: 90vh; /* 画面いっぱいに */
             display: flex;
             align-items: center;
             justify-content: center;
             text-align: center;
-            background-color: var(--accent-light);
+            /* 背景にグラデーションをかけてリッチに */
+            background: linear-gradient(135deg, var(--f1-black) 0%, #2b2b35 100%);
+            position: relative;
+            overflow: hidden;
+        }
+
+        /* 背景装飾（タイヤ痕のようなライン） */
+        #hero::before {
+            content: "";
+            position: absolute;
+            top: 0; left: 50%;
+            width: 300px;
+            height: 100%;
+            background: rgba(255, 255, 255, 0.03);
+            transform: skewX(-20deg);
+        }
+
+        .hero-content {
+            z-index: 2;
         }
 
         .hero-content h1 {
-            font-size: 3rem;
+            font-size: 5rem;
+            font-weight: 900;
+            font-style: italic;
             margin-bottom: 20px;
-            color: var(--accent-color);
+            text-transform: uppercase;
+            line-height: 1;
         }
 
         .hero-content p {
-            font-size: 1.1rem;
-            color: var(--text-light);
+            font-size: 1.5rem;
+            color: var(--f1-light-gray);
+            font-weight: 300;
         }
 
-        /* --- About Section (Including Gakuchika) --- */
+        /* --- About Section --- */
         #about .about-wrapper {
             display: grid;
-            grid-template-columns: 1fr 1.5fr;
-            gap: 50px;
-            align-items: start;
+            grid-template-columns: 1fr 2fr;
+            gap: 40px;
+            align-items: stretch;
         }
 
         .profile-card {
-            text-align: center;
-            background: #fff;
-            padding: 30px;
-            border-radius: 8px;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+            background: var(--f1-dark-gray);
+            padding: 40px;
+            /* 角を少しだけ丸めるか、完全に四角にする（ここでは鋭角に） */
+            border-radius: 4px; 
+            border-top: 4px solid var(--f1-red); /* 上に赤いアクセント */
         }
 
-        /* Placeholder for User Image */
         .profile-img-placeholder {
             width: 150px;
             height: 150px;
-            background-color: #ddd;
+            background-color: #000;
+            border: 2px solid var(--f1-red);
             border-radius: 50%;
             margin: 0 auto 20px;
             display: flex;
             align-items: center;
             justify-content: center;
             color: #fff;
-            font-size: 3rem;
+            font-size: 2rem;
+            font-weight: bold;
         }
 
         .profile-name {
-            font-size: 1.2rem;
+            font-size: 1.5rem;
             font-weight: bold;
-            margin-bottom: 10px;
+            margin-bottom: 5px;
+            text-transform: uppercase;
         }
 
         .profile-university {
-            font-size: 0.9rem;
-            color: var(--text-light);
+            color: var(--f1-red);
+            font-weight: bold;
             margin-bottom: 20px;
         }
 
         /* Gakuchika Style */
         .gakuchika-box {
-            background-color: #fff;
-            border-left: 4px solid var(--accent-color);
-            padding: 0 20px;
+            background-color: var(--f1-dark-gray);
+            border-radius: 4px;
+            padding: 40px;
+            position: relative;
+        }
+        
+        /* 装飾的なコーナーデザイン */
+        .gakuchika-box::after {
+            content: "";
+            position: absolute;
+            top: 0; right: 0;
+            border-width: 0 30px 30px 0;
+            border-style: solid;
+            border-color: transparent var(--f1-red) transparent transparent;
         }
 
         .gakuchika-box h3 {
-            font-size: 1.2rem;
-            margin-bottom: 15px;
-            color: var(--accent-color);
+            font-size: 1.5rem;
+            margin-bottom: 20px;
+            color: #fff;
+            text-transform: uppercase;
+            font-style: italic;
+            border-bottom: 1px solid #555;
+            padding-bottom: 10px;
         }
 
         .gakuchika-text {
-            font-size: 0.95rem;
+            font-size: 1rem;
             line-height: 2;
-            text-align: justify;
+            color: var(--f1-light-gray);
         }
 
-        /* Highlights within text */
         .highlight {
-            background: linear-gradient(transparent 70%, #dcebf7 70%);
+            color: var(--f1-white);
+            background: rgba(225, 6, 0, 0.2); /* 赤いハイライト */
+            padding: 2px 5px;
             font-weight: bold;
+            border-left: 2px solid var(--f1-red);
         }
 
         /* --- Skills Section --- */
         #skills {
-            background-color: var(--accent-light);
+            background-color: #0d0d12; /* 少し暗く */
         }
 
         .skills-grid {
             display: flex;
             justify-content: center;
             flex-wrap: wrap;
-            gap: 20px;
+            gap: 15px;
         }
 
         .skill-item {
-            background: #fff;
-            padding: 15px 30px;
-            border-radius: 30px;
-            font-size: 0.9rem;
-            font-weight: bold;
-            color: var(--accent-color);
-            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+            background: transparent;
+            border: 1px solid #555;
+            color: #fff;
+            padding: 15px 40px;
+            font-size: 1rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            transition: 0.3s;
+            transform: skewX(-10deg); /* 平行四辺形にしてスピード感 */
+        }
+        
+        /* 中身の文字は傾きを戻して読みやすくする */
+        .skill-item span {
+            display: inline-block;
+            transform: skewX(10deg); 
+        }
+
+        .skill-item:hover {
+            border-color: var(--f1-red);
+            background-color: var(--f1-red);
+            color: #fff;
         }
 
         /* --- Works Section --- */
         .works-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
             gap: 30px;
         }
 
         .work-item {
-            background: #fff;
-            border-radius: 8px;
+            background: var(--f1-dark-gray);
+            border-radius: 4px;
             overflow: hidden;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
-            transition: transform 0.3s;
+            transition: transform 0.2s;
+            border-bottom: 3px solid transparent;
         }
 
         .work-item:hover {
             transform: translateY(-5px);
+            border-bottom-color: var(--f1-red);
         }
 
         .work-thumb {
-            height: 200px;
-            background-color: #ddd;
+            height: 220px;
+            background-color: #222;
             display: flex;
             align-items: center;
             justify-content: center;
-            color: #888;
+            color: #555;
+            font-weight: bold;
+            font-style: italic;
+            font-size: 1.5rem;
+            text-transform: uppercase;
         }
 
         .work-info {
-            padding: 20px;
+            padding: 25px;
         }
 
         .work-title {
-            font-size: 1.1rem;
-            font-weight: bold;
+            font-size: 1.3rem;
+            font-weight: 700;
             margin-bottom: 10px;
+            color: #fff;
+            text-transform: uppercase;
         }
 
         .work-desc {
-            font-size: 0.85rem;
-            color: var(--text-light);
+            font-size: 0.9rem;
+            color: var(--f1-light-gray);
         }
 
         /* --- Footer --- */
         footer {
-            background-color: var(--accent-color);
-            color: #fff;
+            background-color: #000;
+            color: #555;
             text-align: center;
-            padding: 40px 0;
-            font-size: 0.8rem;
+            padding: 60px 0;
+            border-top: 5px solid var(--f1-red);
         }
 
         /* --- Mobile Responsive --- */
         @media (max-width: 768px) {
             .hero-content h1 {
-                font-size: 2rem;
+                font-size: 3rem;
             }
 
             #about .about-wrapper {
                 grid-template-columns: 1fr;
             }
-
+            
+            nav ul {
+                display: none; /* スマホでは簡易的に非表示（必要ならハンバーガーメニュー等を追加） */
+            }
+            
             .section-title {
-                font-size: 1.5rem;
+                font-size: 2rem;
+                border-width: 10px;
             }
         }
     </style>
@@ -278,8 +368,8 @@
 <body>
 
     <header>
-        <div class="container" style="display: flex; justify-content: space-between; width: 100%;">
-            <div class="logo">PORTFOLIO</div>
+        <div class="container" style="display: flex; justify-content: space-between; align-items: center; width: 100%;">
+            <div class="logo">PORTFOLIO<span style="color:000;">.F1</span></div>
             <nav>
                 <ul>
                     <li><a href="#about">About</a></li>
@@ -292,8 +382,8 @@
 
     <section id="hero">
         <div class="hero-content">
-            <h1>Hello, I'm [Your Name].</h1>
-            <p>常に改善意識を持ち、価値を生み出すクリエイターを目指して。</p>
+            <h1>HI, I'M [NAME].</h1>
+            <p>Pushing the Limits of Creativity & Logic.</p>
         </div>
     </section>
 
@@ -302,17 +392,17 @@
         
         <div class="about-wrapper">
             <div class="profile-card">
-                <div class="profile-img-placeholder">img</div>
+                <div class="profile-img-placeholder">IMG</div>
                 <h3 class="profile-name">[氏名を入力]</h3>
-                <p class="profile-university">〇〇大学 〇〇学部<br>X年生</p>
-                <p style="font-size:0.85rem; color:#666; margin-top:15px;">
+                <p class="profile-university">〇〇大学 〇〇学部 X年生</p>
+                <p style="font-size:0.9rem; color:#d0d0d2; margin-top:20px; line-height: 1.8;">
                     Webデザインとコーディングを勉強中です。<br>
-                    問題解決能力と効率化への意識には自信があります。
+                    スピード感を持った学習と、精度の高いアウトプットを目指しています。
                 </p>
             </div>
 
             <div class="gakuchika-box">
-                <h3>My Story / 学生時代に力を入れたこと</h3>
+                <h3>My Story / Gakuchika</h3>
                 <div class="gakuchika-text">
                     <p>
                         高校2年生の時、物流倉庫の仕分け業務で、<span class="highlight">作業プロセスの効率化</span>に取り組みました。<br><br>
@@ -328,11 +418,12 @@
         <div class="container">
             <h2 class="section-title">Skills<span>できること</span></h2>
             <div class="skills-grid">
-                <div class="skill-item">HTML5 / CSS3</div>
-                <div class="skill-item">JavaScript (Basic)</div>
-                <div class="skill-item">Illustrator / Photoshop</div>
-                <div class="skill-item">Process Improvement</div>
-                <div class="skill-item">Team Communication</div>
+                <div class="skill-item"><span>HTML5 / CSS3</span></div>
+                <div class="skill-item"><span>JavaScript</span></div>
+                <div class="skill-item"><span>Illustrator</span></div>
+                <div class="skill-item"><span>Photoshop</span></div>
+                <div class="skill-item"><span>Kaizen</span></div>
+                <div class="skill-item"><span>Team Work</span></div>
             </div>
         </div>
     </section>
@@ -357,8 +448,8 @@
             <div class="work-item">
                 <div class="work-thumb">Image</div>
                 <div class="work-info">
-                    <h3 class="work-title">ポートフォリオサイト</h3>
-                    <p class="work-desc">現在のこのサイトです。</p>
+                    <h3 class="work-title">ポートフォリオ</h3>
+                    <p class="work-desc">F1スタイルを取り入れた現在のサイト。</p>
                 </div>
             </div>
         </div>
@@ -366,8 +457,9 @@
 
     <footer>
         <div class="container">
-            <p>Contact: your.email@example.com</p>
-            <p style="margin-top: 10px;">&copy; 2025 [Your Name] Portfolio</p>
+            <p style="font-weight: bold; font-size: 1.2rem;">CONTACT</p>
+            <p style="color: #fff; margin-top: 5px;">your.email@example.com</p>
+            <p style="margin-top: 30px; font-size: 0.7rem;">&copy; 2025 [Your Name] Portfolio. All rights reserved.</p>
         </div>
     </footer>
 
