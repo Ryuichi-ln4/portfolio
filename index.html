@@ -1,0 +1,375 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Portfolio | University Student</title>
+    <style>
+        /* --- CSS Variables & Reset --- */
+        :root {
+            --text-main: #333333;
+            --text-light: #666666;
+            --accent-color: #2c3e50; /* 知的なネイビー */
+            --accent-light: #eef2f5;
+            --bg-color: #ffffff;
+            --font-base: "Helvetica Neue", Arial, "Hiragino Kaku Gothic ProN", "Hiragino Sans", Meiryo, sans-serif;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: var(--font-base);
+            color: var(--text-main);
+            background-color: var(--bg-color);
+            line-height: 1.8;
+            letter-spacing: 0.05em;
+        }
+
+        a {
+            text-decoration: none;
+            color: inherit;
+            transition: opacity 0.3s;
+        }
+
+        a:hover {
+            opacity: 0.7;
+        }
+
+        /* --- Layout Utilities --- */
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        section {
+            padding: 80px 0;
+        }
+
+        .section-title {
+            font-size: 2rem;
+            margin-bottom: 40px;
+            text-align: center;
+            font-weight: 300;
+            letter-spacing: 0.1em;
+            color: var(--accent-color);
+        }
+
+        .section-title span {
+            display: block;
+            font-size: 0.9rem;
+            color: var(--text-light);
+            margin-top: 5px;
+            font-weight: normal;
+        }
+
+        /* --- Header --- */
+        header {
+            height: 70px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            position: sticky;
+            top: 0;
+            background-color: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(5px);
+            z-index: 100;
+            box-shadow: 0 1px 5px rgba(0,0,0,0.05);
+        }
+
+        .logo {
+            font-weight: bold;
+            font-size: 1.2rem;
+            color: var(--accent-color);
+        }
+
+        nav ul {
+            display: flex;
+            list-style: none;
+            gap: 30px;
+        }
+
+        nav li {
+            font-size: 0.9rem;
+        }
+
+        /* --- Hero Section --- */
+        #hero {
+            height: 80vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            background-color: var(--accent-light);
+        }
+
+        .hero-content h1 {
+            font-size: 3rem;
+            margin-bottom: 20px;
+            color: var(--accent-color);
+        }
+
+        .hero-content p {
+            font-size: 1.1rem;
+            color: var(--text-light);
+        }
+
+        /* --- About Section (Including Gakuchika) --- */
+        #about .about-wrapper {
+            display: grid;
+            grid-template-columns: 1fr 1.5fr;
+            gap: 50px;
+            align-items: start;
+        }
+
+        .profile-card {
+            text-align: center;
+            background: #fff;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+        }
+
+        /* Placeholder for User Image */
+        .profile-img-placeholder {
+            width: 150px;
+            height: 150px;
+            background-color: #ddd;
+            border-radius: 50%;
+            margin: 0 auto 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #fff;
+            font-size: 3rem;
+        }
+
+        .profile-name {
+            font-size: 1.2rem;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+
+        .profile-university {
+            font-size: 0.9rem;
+            color: var(--text-light);
+            margin-bottom: 20px;
+        }
+
+        /* Gakuchika Style */
+        .gakuchika-box {
+            background-color: #fff;
+            border-left: 4px solid var(--accent-color);
+            padding: 0 20px;
+        }
+
+        .gakuchika-box h3 {
+            font-size: 1.2rem;
+            margin-bottom: 15px;
+            color: var(--accent-color);
+        }
+
+        .gakuchika-text {
+            font-size: 0.95rem;
+            line-height: 2;
+            text-align: justify;
+        }
+
+        /* Highlights within text */
+        .highlight {
+            background: linear-gradient(transparent 70%, #dcebf7 70%);
+            font-weight: bold;
+        }
+
+        /* --- Skills Section --- */
+        #skills {
+            background-color: var(--accent-light);
+        }
+
+        .skills-grid {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+
+        .skill-item {
+            background: #fff;
+            padding: 15px 30px;
+            border-radius: 30px;
+            font-size: 0.9rem;
+            font-weight: bold;
+            color: var(--accent-color);
+            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+        }
+
+        /* --- Works Section --- */
+        .works-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+        }
+
+        .work-item {
+            background: #fff;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+            transition: transform 0.3s;
+        }
+
+        .work-item:hover {
+            transform: translateY(-5px);
+        }
+
+        .work-thumb {
+            height: 200px;
+            background-color: #ddd;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #888;
+        }
+
+        .work-info {
+            padding: 20px;
+        }
+
+        .work-title {
+            font-size: 1.1rem;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+
+        .work-desc {
+            font-size: 0.85rem;
+            color: var(--text-light);
+        }
+
+        /* --- Footer --- */
+        footer {
+            background-color: var(--accent-color);
+            color: #fff;
+            text-align: center;
+            padding: 40px 0;
+            font-size: 0.8rem;
+        }
+
+        /* --- Mobile Responsive --- */
+        @media (max-width: 768px) {
+            .hero-content h1 {
+                font-size: 2rem;
+            }
+
+            #about .about-wrapper {
+                grid-template-columns: 1fr;
+            }
+
+            .section-title {
+                font-size: 1.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="container" style="display: flex; justify-content: space-between; width: 100%;">
+            <div class="logo">PORTFOLIO</div>
+            <nav>
+                <ul>
+                    <li><a href="#about">About</a></li>
+                    <li><a href="#skills">Skills</a></li>
+                    <li><a href="#works">Works</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <section id="hero">
+        <div class="hero-content">
+            <h1>Hello, I'm [Your Name].</h1>
+            <p>常に改善意識を持ち、価値を生み出すクリエイターを目指して。</p>
+        </div>
+    </section>
+
+    <section id="about" class="container">
+        <h2 class="section-title">About Me<span>私について</span></h2>
+        
+        <div class="about-wrapper">
+            <div class="profile-card">
+                <div class="profile-img-placeholder">img</div>
+                <h3 class="profile-name">[氏名を入力]</h3>
+                <p class="profile-university">〇〇大学 〇〇学部<br>X年生</p>
+                <p style="font-size:0.85rem; color:#666; margin-top:15px;">
+                    Webデザインとコーディングを勉強中です。<br>
+                    問題解決能力と効率化への意識には自信があります。
+                </p>
+            </div>
+
+            <div class="gakuchika-box">
+                <h3>My Story / 学生時代に力を入れたこと</h3>
+                <div class="gakuchika-text">
+                    <p>
+                        高校2年生の時、物流倉庫の仕分け業務で、<span class="highlight">作業プロセスの効率化</span>に取り組みました。<br><br>
+                        当初は不揃いな商品を無作為に積んでいたため隙間が多く、非効率な状態でした。そこで私は「空間の有効活用」を掲げ、形状が近い商品の集約や、小物を定型の箱にまとめて配置するルールを自ら導入しました。<br><br>
+                        その結果、ラックへの積載効率が飛躍的に向上し、一度に多くの商品を運べるようになったことで、作業全体の時間を大幅に短縮することに成功しました。この経験を通じ、漫然と作業するのではなく、常に改善意識を持って生産性を高めることの重要性を学びました。
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="skills">
+        <div class="container">
+            <h2 class="section-title">Skills<span>できること</span></h2>
+            <div class="skills-grid">
+                <div class="skill-item">HTML5 / CSS3</div>
+                <div class="skill-item">JavaScript (Basic)</div>
+                <div class="skill-item">Illustrator / Photoshop</div>
+                <div class="skill-item">Process Improvement</div>
+                <div class="skill-item">Team Communication</div>
+            </div>
+        </div>
+    </section>
+
+    <section id="works" class="container">
+        <h2 class="section-title">Works<span>制作実績</span></h2>
+        <div class="works-grid">
+            <div class="work-item">
+                <div class="work-thumb">Image</div>
+                <div class="work-info">
+                    <h3 class="work-title">架空のカフェサイト</h3>
+                    <p class="work-desc">HTML/CSSを使用したレスポンシブサイト。</p>
+                </div>
+            </div>
+            <div class="work-item">
+                <div class="work-thumb">Image</div>
+                <div class="work-info">
+                    <h3 class="work-title">バナー模写</h3>
+                    <p class="work-desc">Photoshopを使用したバナートレース。</p>
+                </div>
+            </div>
+            <div class="work-item">
+                <div class="work-thumb">Image</div>
+                <div class="work-info">
+                    <h3 class="work-title">ポートフォリオサイト</h3>
+                    <p class="work-desc">現在のこのサイトです。</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container">
+            <p>Contact: your.email@example.com</p>
+            <p style="margin-top: 10px;">&copy; 2025 [Your Name] Portfolio</p>
+        </div>
+    </footer>
+
+</body>
+</html>
