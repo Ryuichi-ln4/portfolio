@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>My Portfolio | Racing Style</title>
+    <title>My Portfolio | RB Style</title>
     
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -12,12 +12,11 @@
     <style>
         /* --- CSS Variables & Reset --- */
         :root {
-            /* F1 Inspired Colors */
-            --f1-red: #e10600;       /* あの鮮烈な赤 */
-            --f1-black: #15151e;     /* ダークな背景 */
-            --f1-dark-gray: #38383f; /* カード背景 */
-            --f1-light-gray: #d0d0d2;/* テキスト色 */
-            --f1-white: #ffffff;
+            /* Racing Bulls (VCARB) Inspired Colors */
+            --rb-blue: #131e3d;       /* 深いメタリックブルー */
+            --rb-blue-light: #1f2e5a; /* グラデーション用の明るいブルー */
+            --rb-silver: #f0f0f3;     /* 車体のシルバー/ホワイト */
+            --rb-neon-red: #ff3545;   /* アクセントの鮮やかなレッド */
             
             --font-base: "Titillium Web", "Helvetica Neue", Arial, sans-serif;
         }
@@ -30,8 +29,10 @@
 
         body {
             font-family: var(--font-base);
-            color: var(--f1-white);
-            background-color: var(--f1-black); /* 背景を黒に */
+            color: var(--rb-silver);
+            /* RBらしい深いブルーのグラデーション背景 */
+            background: linear-gradient(135deg, var(--rb-blue) 0%, #0a0f1e 100%);
+            background-attachment: fixed; /* スクロールしても背景を固定 */
             line-height: 1.6;
             letter-spacing: 0.05em;
         }
@@ -43,38 +44,43 @@
         }
 
         a:hover {
-            color: var(--f1-red);
+            color: var(--rb-neon-red);
+            text-shadow: 0 0 8px rgba(255, 53, 69, 0.6); /* ネオンのような発光 */
         }
 
         /* --- Layout Utilities --- */
         .container {
-            max-width: 1200px; /* 少しワイドに */
+            max-width: 1200px;
             margin: 0 auto;
             padding: 0 20px;
         }
 
         section {
             padding: 100px 0;
-            border-bottom: 1px solid #333; /* セクション区切り線 */
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
         }
 
-        /* タイトルデザイン: 右側に赤いライン + 斜体 */
+        /* タイトルデザイン: シルバーのラインとブルーの対比 */
         .section-title {
             font-size: 3rem;
             margin-bottom: 60px;
-            text-transform: uppercase; /* 大文字固定 */
-            font-weight: 900;          /* 極太 */
-            font-style: italic;        /* 斜体でスピード感 */
+            text-transform: uppercase;
+            font-weight: 900;
+            font-style: italic;
             display: inline-block;
-            border-right: 15px solid var(--f1-red); /* F1ロゴのようなアクセント */
-            padding-right: 20px;
+            /* 左側にシルバー、右側にレッドのライン */
+            border-left: 10px solid var(--rb-silver);
+            border-right: 10px solid var(--rb-neon-red);
+            padding: 0 20px;
             line-height: 1;
+            background: linear-gradient(90deg, transparent 0%, rgba(255,255,255,0.05) 50%, transparent 100%);
         }
 
         .section-title span {
             display: block;
             font-size: 1rem;
-            color: var(--f1-red);
+            color: var(--rb-silver);
+            opacity: 0.8;
             font-weight: 700;
             font-style: normal;
             margin-top: 5px;
@@ -89,17 +95,22 @@
             justify-content: space-between;
             position: sticky;
             top: 0;
-            background-color: var(--f1-red); /* ヘッダーを赤に */
+            background-color: rgba(19, 30, 61, 0.95); /* ブルーの透過 */
+            border-bottom: 2px solid var(--rb-silver); /* 車体にあるシルバーのライン */
             z-index: 100;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+            backdrop-filter: blur(10px);
         }
 
         .logo {
             font-weight: 900;
             font-size: 1.8rem;
             font-style: italic;
-            color: #fff;
-            letter-spacing: -0.05em; /* 文字を詰めてロゴっぽく */
+            color: var(--rb-silver);
+            letter-spacing: -0.05em;
+        }
+
+        .logo span {
+            color: var(--rb-neon-red);
         }
 
         nav ul {
@@ -112,35 +123,40 @@
             font-size: 1rem;
             font-weight: 700;
             text-transform: uppercase;
-            color: #fff;
-        }
-        
-        nav li a:hover {
-            color: #000; /* ホバー時は黒文字へ */
+            color: var(--rb-silver);
         }
 
         /* --- Hero Section --- */
         #hero {
-            height: 90vh; /* 画面いっぱいに */
+            height: 90vh;
             display: flex;
             align-items: center;
             justify-content: center;
             text-align: center;
-            /* 背景にグラデーションをかけてリッチに */
-            background: linear-gradient(135deg, var(--f1-black) 0%, #2b2b35 100%);
             position: relative;
             overflow: hidden;
         }
 
-        /* 背景装飾（タイヤ痕のようなライン） */
+        /* RBのリバリー（車体デザイン）を意識した斜めのストライプ */
         #hero::before {
             content: "";
             position: absolute;
-            top: 0; left: 50%;
-            width: 300px;
-            height: 100%;
-            background: rgba(255, 255, 255, 0.03);
-            transform: skewX(-20deg);
+            top: -20%; left: 30%;
+            width: 50%;
+            height: 150%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.05), transparent);
+            transform: skewX(-25deg);
+            z-index: 1;
+        }
+        
+        #hero::after {
+            content: "";
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 5px;
+            background: linear-gradient(90deg, var(--rb-blue), var(--rb-silver), var(--rb-neon-red));
         }
 
         .hero-content {
@@ -154,12 +170,18 @@
             margin-bottom: 20px;
             text-transform: uppercase;
             line-height: 1;
+            /* シルバーのグラデーション文字 */
+            background: linear-gradient(to bottom, #ffffff, #a0a0a0);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
         }
 
         .hero-content p {
             font-size: 1.5rem;
-            color: var(--f1-light-gray);
-            font-weight: 300;
+            color: var(--rb-neon-red); /* アクセントカラー */
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
         }
 
         /* --- About Section --- */
@@ -171,26 +193,27 @@
         }
 
         .profile-card {
-            background: var(--f1-dark-gray);
+            background: rgba(255, 255, 255, 0.05); /* グラスモーフィズム風 */
             padding: 40px;
-            /* 角を少しだけ丸めるか、完全に四角にする（ここでは鋭角に） */
-            border-radius: 4px; 
-            border-top: 4px solid var(--f1-red); /* 上に赤いアクセント */
+            border-radius: 10px; 
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-left: 5px solid var(--rb-silver);
         }
 
         .profile-img-placeholder {
             width: 150px;
             height: 150px;
-            background-color: #000;
-            border: 2px solid var(--f1-red);
+            background: linear-gradient(135deg, #ddd, #999);
+            border: 4px solid var(--rb-blue);
             border-radius: 50%;
             margin: 0 auto 20px;
             display: flex;
             align-items: center;
             justify-content: center;
-            color: #fff;
+            color: var(--rb-blue);
             font-size: 2rem;
             font-weight: bold;
+            box-shadow: 0 0 20px rgba(255,255,255,0.2);
         }
 
         .profile-name {
@@ -198,59 +221,52 @@
             font-weight: bold;
             margin-bottom: 5px;
             text-transform: uppercase;
+            color: var(--rb-silver);
         }
 
         .profile-university {
-            color: var(--f1-red);
+            color: var(--rb-neon-red);
             font-weight: bold;
             margin-bottom: 20px;
         }
 
         /* Gakuchika Style */
         .gakuchika-box {
-            background-color: var(--f1-dark-gray);
-            border-radius: 4px;
+            background-color: var(--rb-blue-light);
+            border-radius: 10px;
             padding: 40px;
             position: relative;
+            border: 1px solid rgba(255,255,255,0.1);
         }
         
-        /* 装飾的なコーナーデザイン */
-        .gakuchika-box::after {
-            content: "";
-            position: absolute;
-            top: 0; right: 0;
-            border-width: 0 30px 30px 0;
-            border-style: solid;
-            border-color: transparent var(--f1-red) transparent transparent;
-        }
-
         .gakuchika-box h3 {
             font-size: 1.5rem;
             margin-bottom: 20px;
-            color: #fff;
+            color: var(--rb-silver);
             text-transform: uppercase;
             font-style: italic;
-            border-bottom: 1px solid #555;
+            border-bottom: 2px solid var(--rb-neon-red);
             padding-bottom: 10px;
+            display: inline-block;
         }
 
         .gakuchika-text {
             font-size: 1rem;
             line-height: 2;
-            color: var(--f1-light-gray);
+            color: #d1d5db;
         }
 
         .highlight {
-            color: var(--f1-white);
-            background: rgba(225, 6, 0, 0.2); /* 赤いハイライト */
-            padding: 2px 5px;
+            color: var(--rb-blue);
+            background: var(--rb-silver);
+            padding: 2px 8px;
             font-weight: bold;
-            border-left: 2px solid var(--f1-red);
+            border-radius: 4px;
         }
 
         /* --- Skills Section --- */
         #skills {
-            background-color: #0d0d12; /* 少し暗く */
+            background: linear-gradient(180deg, var(--rb-blue), #000);
         }
 
         .skills-grid {
@@ -261,28 +277,29 @@
         }
 
         .skill-item {
-            background: transparent;
-            border: 1px solid #555;
-            color: #fff;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid var(--rb-silver);
+            color: var(--rb-silver);
             padding: 15px 40px;
             font-size: 1rem;
             font-weight: 700;
             text-transform: uppercase;
             letter-spacing: 1px;
             transition: 0.3s;
-            transform: skewX(-10deg); /* 平行四辺形にしてスピード感 */
+            transform: skewX(-15deg); 
+            border-radius: 4px;
         }
         
-        /* 中身の文字は傾きを戻して読みやすくする */
         .skill-item span {
             display: inline-block;
-            transform: skewX(10deg); 
+            transform: skewX(15deg); 
         }
 
         .skill-item:hover {
-            border-color: var(--f1-red);
-            background-color: var(--f1-red);
+            border-color: var(--rb-neon-red);
+            background-color: var(--rb-neon-red);
             color: #fff;
+            box-shadow: 0 0 15px var(--rb-neon-red);
         }
 
         /* --- Works Section --- */
@@ -293,21 +310,22 @@
         }
 
         .work-item {
-            background: var(--f1-dark-gray);
-            border-radius: 4px;
+            background: var(--rb-blue-light);
+            border-radius: 10px;
             overflow: hidden;
             transition: transform 0.2s;
-            border-bottom: 3px solid transparent;
+            border: 1px solid rgba(255,255,255,0.1);
         }
 
         .work-item:hover {
             transform: translateY(-5px);
-            border-bottom-color: var(--f1-red);
+            border-color: var(--rb-silver);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
         }
 
         .work-thumb {
             height: 220px;
-            background-color: #222;
+            background-color: #0a0f1e;
             display: flex;
             align-items: center;
             justify-content: center;
@@ -316,6 +334,7 @@
             font-style: italic;
             font-size: 1.5rem;
             text-transform: uppercase;
+            border-bottom: 2px solid var(--rb-neon-red);
         }
 
         .work-info {
@@ -326,22 +345,35 @@
             font-size: 1.3rem;
             font-weight: 700;
             margin-bottom: 10px;
-            color: #fff;
+            color: var(--rb-silver);
             text-transform: uppercase;
         }
 
         .work-desc {
             font-size: 0.9rem;
-            color: var(--f1-light-gray);
+            color: #a0a0a0;
         }
 
         /* --- Footer --- */
         footer {
-            background-color: #000;
-            color: #555;
+            background-color: #050810;
+            color: #777;
             text-align: center;
             padding: 60px 0;
-            border-top: 5px solid var(--f1-red);
+            border-top: 3px solid var(--rb-silver);
+            position: relative;
+        }
+        
+        /* フッターのアクセント */
+        footer::before {
+            content: "";
+            position: absolute;
+            top: -3px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100px;
+            height: 3px;
+            background-color: var(--rb-neon-red);
         }
 
         /* --- Mobile Responsive --- */
@@ -355,12 +387,12 @@
             }
             
             nav ul {
-                display: none; /* スマホでは簡易的に非表示（必要ならハンバーガーメニュー等を追加） */
+                display: none; 
             }
             
             .section-title {
                 font-size: 2rem;
-                border-width: 10px;
+                border-width: 5px;
             }
         }
     </style>
@@ -369,7 +401,7 @@
 
     <header>
         <div class="container" style="display: flex; justify-content: space-between; align-items: center; width: 100%;">
-            <div class="logo">PORTFOLIO<span style="color:000;">.F1</span></div>
+            <div class="logo">PORTFOLIO<span>.RB</span></div>
             <nav>
                 <ul>
                     <li><a href="#about">About</a></li>
@@ -449,7 +481,7 @@
                 <div class="work-thumb">Image</div>
                 <div class="work-info">
                     <h3 class="work-title">ポートフォリオ</h3>
-                    <p class="work-desc">F1スタイルを取り入れた現在のサイト。</p>
+                    <p class="work-desc">Racing Bullsスタイルを取り入れた現在のサイト。</p>
                 </div>
             </div>
         </div>
