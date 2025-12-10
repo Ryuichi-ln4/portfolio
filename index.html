@@ -6,23 +6,27 @@
     <title>Ryuichi Saito | Portfolio</title>
     
     <style>
-        /* --- CSS Variables & Reset --- */
+        /* --- CSS Variables --- */
         :root {
-            /* Future Eco/Tech Palette */
-            --bg-body: #f8fafc;        /* アイスホワイト */
-            --bg-panel: rgba(255, 255, 255, 0.75); /* 白いすりガラス */
+            /* Apple Liquid Palette */
+            --bg-base: #f2f2f7; /* iOS System Gray 6 */
             
-            --text-main: #1e293b;      /* ダークスレート（ほぼ黒） */
-            --text-sub: #64748b;       /* クールグレー */
+            /* Glass Material Settings */
+            --glass-surface: rgba(255, 255, 255, 0.65); /* ミルキーな半透明 */
+            --glass-border: rgba(255, 255, 255, 0.8);
+            --glass-shadow: 0 12px 40px rgba(0, 0, 0, 0.04);
+            --glass-blur: blur(50px) saturate(180%);
             
-            --accent-primary: #00cc6a; /* テックグリーン (文字用) */
-            --accent-secondary: #ccff00; /* ネオンライム (発光・アクセント用) */
+            /* Typography */
+            --text-main: #1d1d1f; /* SF Black */
+            --text-sub: #86868b;  /* SF Gray */
             
-            /* 爽やかさとエネルギーを感じるグラデーション */
-            --gradient-text: linear-gradient(135deg, #00b09b 0%, #96c93d 100%);
-            --gradient-bg: linear-gradient(135deg, #00c6ff 0%, #0072ff 100%); /* ボタン等 */
+            /* Accents (Aurora Colors) */
+            --accent-green: #34c759; /* Apple Green */
+            --accent-cyan: #32ade6;  /* Apple Cyan */
+            --accent-lime: #d4f238;  /* Vivid Lime */
             
-            --font-base: "Helvetica Neue", Arial, "Hiragino Kaku Gothic ProN", "Hiragino Sans", Meiryo, sans-serif;
+            --font-base: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
         }
 
         * {
@@ -34,41 +38,78 @@
         body {
             font-family: var(--font-base);
             color: var(--text-main);
-            background-color: var(--bg-body);
-            /* 未来的なグリッド背景 */
-            background-image: 
-                linear-gradient(rgba(0, 204, 106, 0.03) 1px, transparent 1px),
-                linear-gradient(90deg, rgba(0, 204, 106, 0.03) 1px, transparent 1px);
-            background-size: 40px 40px;
-            background-position: center top;
+            background-color: var(--bg-base);
             line-height: 1.6;
-            letter-spacing: 0.05em;
+            letter-spacing: -0.01em; /* SF Pro風のタイトな字詰め */
             -webkit-font-smoothing: antialiased;
+            overflow-x: hidden;
+            position: relative;
         }
 
-        /* 画面端に淡い光を追加して空気感を出す */
-        body::before {
-            content: '';
+        /* --- Liquid Background (Aurora Mesh) --- */
+        .liquid-bg {
             position: fixed;
-            top: -20%;
-            right: -10%;
-            width: 800px;
-            height: 800px;
-            background: radial-gradient(circle, rgba(204, 255, 0, 0.15) 0%, rgba(255,255,255,0) 70%);
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
             z-index: -1;
-            pointer-events: none;
+            overflow: hidden;
+            background: #fff;
         }
 
-        body::after {
-            content: '';
-            position: fixed;
-            bottom: -20%;
+        /* 流体オーブのアニメーション定義 */
+        @keyframes floatOrg {
+            0% { transform: translate(0, 0) scale(1); }
+            33% { transform: translate(30px, -50px) scale(1.1); }
+            66% { transform: translate(-20px, 20px) scale(0.9); }
+            100% { transform: translate(0, 0) scale(1); }
+        }
+
+        .orb {
+            position: absolute;
+            border-radius: 50%;
+            filter: blur(80px);
+            opacity: 0.6;
+            animation: floatOrg 10s infinite ease-in-out;
+        }
+
+        .orb-1 {
+            top: -10%;
             left: -10%;
-            width: 800px;
-            height: 800px;
-            background: radial-gradient(circle, rgba(0, 204, 106, 0.1) 0%, rgba(255,255,255,0) 70%);
-            z-index: -1;
-            pointer-events: none;
+            width: 50vw;
+            height: 50vw;
+            background: var(--accent-lime);
+            animation-delay: 0s;
+        }
+
+        .orb-2 {
+            bottom: 10%;
+            right: -5%;
+            width: 40vw;
+            height: 40vw;
+            background: var(--accent-cyan);
+            animation-delay: -2s;
+        }
+        
+        .orb-3 {
+            top: 40%;
+            left: 40%;
+            width: 30vw;
+            height: 30vw;
+            background: rgba(52, 199, 89, 0.4);
+            animation-delay: -5s;
+        }
+
+        /* --- Layout Utilities --- */
+        .container {
+            max-width: 980px; /* Apple標準の幅 */
+            margin: 0 auto;
+            padding: 0 24px;
+        }
+
+        section {
+            padding: 140px 0;
         }
 
         a {
@@ -77,443 +118,357 @@
             transition: all 0.3s ease;
         }
 
-        /* --- Layout Utilities --- */
-        .container {
-            max-width: 1000px;
-            margin: 0 auto;
-            padding: 0 24px;
+        /* --- Glassmorphism Card (Liquid Style) --- */
+        .glass-card {
+            background: var(--glass-surface);
+            backdrop-filter: var(--glass-blur);
+            -webkit-backdrop-filter: var(--glass-blur);
+            border: 1px solid var(--glass-border);
+            border-radius: 30px;
+            box-shadow: var(--glass-shadow);
+            position: relative;
+            overflow: hidden;
         }
-
-        section {
-            padding: 120px 0;
-        }
-
-        /* タイトルデザイン */
-        .section-title {
-            font-size: 3.5rem;
-            margin-bottom: 70px;
-            font-weight: 800;
-            text-align: center;
-            line-height: 1.1;
-            background: var(--gradient-text);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            display: inline-block;
-            width: 100%;
-        }
-
-        .section-title span {
-            display: block;
-            font-size: 1rem;
-            color: var(--text-sub);
-            font-weight: 500;
-            margin-top: 15px;
-            letter-spacing: 0.2em;
-            text-transform: uppercase;
-            -webkit-text-fill-color: var(--text-sub);
-            opacity: 0.7;
+        
+        /* 光の反射（スペキュラー）レイヤー */
+        .glass-card::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            border-radius: 30px;
+            padding: 1px; /* ボーダーの内側に光沢 */
+            background: linear-gradient(135deg, rgba(255,255,255,0.8), rgba(255,255,255,0.1) 50%, rgba(255,255,255,0));
+            -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+            -webkit-mask-composite: xor;
+            mask-composite: exclude;
+            pointer-events: none;
         }
 
         /* --- Header --- */
         header {
-            height: 70px;
+            height: 60px;
+            position: sticky;
+            top: 20px; /* 少し浮かせる */
+            z-index: 100;
+            margin-top: 20px;
+        }
+
+        .nav-island {
+            background: rgba(255, 255, 255, 0.75);
+            backdrop-filter: blur(30px) saturate(180%);
+            -webkit-backdrop-filter: blur(30px) saturate(180%);
+            border: 1px solid rgba(255, 255, 255, 0.6);
+            border-radius: 100px;
+            height: 100%;
             display: flex;
             align-items: center;
-            position: sticky;
-            top: 0;
-            background-color: rgba(255, 255, 255, 0.85); /* 明るいすりガラス */
-            backdrop-filter: blur(20px);
-            z-index: 100;
-            border-bottom: 1px solid rgba(0, 0, 0, 0.03);
-            box-shadow: 0 4px 20px rgba(0,0,0,0.02);
+            justify-content: space-between;
+            padding: 0 30px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+            max-width: 980px;
+            margin: 0 auto;
         }
 
         .logo {
-            font-weight: 800;
-            font-size: 1.3rem;
+            font-weight: 600;
+            font-size: 1.1rem;
             color: var(--text-main);
-            letter-spacing: 0.05em;
-        }
-        
-        /* ロゴにドットアクセント */
-        .logo::after {
-            content: '.';
-            color: var(--accent-primary);
-            font-size: 1.5rem;
+            letter-spacing: -0.02em;
         }
 
         nav ul {
             display: flex;
             list-style: none;
-            gap: 30px;
+            gap: 24px;
         }
 
         nav li a {
-            font-size: 0.9rem;
-            color: var(--text-sub);
-            font-weight: 600;
-            position: relative;
-        }
-        
-        nav li a::after {
-            content: '';
-            position: absolute;
-            bottom: -4px;
-            left: 0;
-            width: 0%;
-            height: 2px;
-            background: var(--accent-primary);
-            transition: 0.3s;
-        }
-
-        nav li a:hover {
+            font-size: 0.85rem;
             color: var(--text-main);
+            font-weight: 500;
+            opacity: 0.8;
+            padding: 8px 12px;
+            border-radius: 20px;
         }
         
-        nav li a:hover::after {
-            width: 100%;
+        nav li a:hover {
+            background: rgba(0,0,0,0.05);
+            opacity: 1;
         }
 
         /* --- Hero Section --- */
         #hero {
-            height: 90vh;
+            height: 85vh;
             display: flex;
             flex-direction: column;
             align-items: center;
             justify-content: center;
             text-align: center;
-            position: relative;
-            overflow: hidden;
-        }
-
-        @keyframes fadeUp {
-            from { opacity: 0; transform: translateY(30px); }
-            to { opacity: 1; transform: translateY(0); }
         }
 
         .hero-content h1 {
-            font-size: 6rem;
-            font-weight: 900;
-            line-height: 1;
+            font-size: 5rem; /* Large Display Text */
+            font-weight: 700;
+            line-height: 1.05;
             margin-bottom: 24px;
-            color: var(--text-main);
-            letter-spacing: -0.02em;
-            animation: fadeUp 1s cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
-        }
-        
-        /* 蛍光グリーンのグラデーション文字 */
-        .hero-gradient-text {
-            background: var(--gradient-text);
+            color: #1d1d1f;
+            letter-spacing: -0.03em;
+            /* わずかにグラデーションをかけて立体感を出す */
+            background: linear-gradient(180deg, #1d1d1f 20%, #434344 100%);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
         }
 
         .hero-content p {
-            font-size: 1.5rem;
+            font-size: 1.6rem;
             color: var(--text-sub);
             font-weight: 400;
-            letter-spacing: 0.05em;
-            animation: fadeUp 1s cubic-bezier(0.2, 0.8, 0.2, 1) 0.2s forwards;
-            opacity: 0;
+            max-width: 600px;
+            margin: 0 auto;
         }
-        
-        /* 爽やかで未来的なボタン */
+
+        /* Liquid Button */
         .hero-btn {
-            display: inline-block;
             margin-top: 40px;
-            padding: 14px 36px;
+            padding: 14px 32px;
             border-radius: 50px;
-            background: #fff;
-            color: var(--text-main);
-            font-weight: 700;
-            border: 2px solid transparent;
-            /* グラデーションボーダーのテクニック */
-            background-image: linear-gradient(#fff, #fff), var(--gradient-text);
-            background-origin: border-box;
-            background-clip: content-box, border-box;
-            box-shadow: 0 10px 25px rgba(0, 204, 106, 0.2);
-            animation: fadeUp 1s cubic-bezier(0.2, 0.8, 0.2, 1) 0.4s forwards;
-            opacity: 0;
-            transition: all 0.3s ease;
-        }
-        
-        .hero-btn:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 15px 35px rgba(150, 201, 61, 0.4); /* ライムグリーンの発光 */
-            letter-spacing: 0.05em;
-        }
-
-        /* --- Bento Grid (Light Glassmorphism) --- */
-        .bento-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 24px;
-        }
-        
-        .card {
-            background-color: var(--bg-panel);
-            backdrop-filter: blur(25px);
-            border: 1px solid rgba(255, 255, 255, 0.8);
-            border-radius: 24px;
-            padding: 48px;
-            transition: all 0.4s ease;
-            position: relative;
-            overflow: hidden;
-            /* 柔らかい影で浮遊感を出す */
-            box-shadow: 0 10px 40px -10px rgba(0, 0, 0, 0.05);
-        }
-        
-        .card:hover {
-            transform: translateY(-5px);
-            border-color: var(--accent-secondary);
-            box-shadow: 0 20px 50px -10px rgba(0, 204, 106, 0.15);
-        }
-
-        /* カードの右上に装飾 */
-        .card::before {
-            content: '';
-            position: absolute;
-            top: -50px;
-            right: -50px;
-            width: 100px;
-            height: 100px;
-            background: radial-gradient(circle, var(--accent-secondary) 0%, transparent 70%);
-            opacity: 0.5;
-            filter: blur(20px);
-            transition: 0.4s;
-        }
-        
-        .card:hover::before {
-            opacity: 0.8;
-            transform: scale(1.2);
-        }
-
-        /* Profile Specifics */
-        .profile-header {
-            display: flex;
-            align-items: center;
-            gap: 24px;
-            margin-bottom: 24px;
-        }
-
-        .profile-img-placeholder {
-            width: 90px;
-            height: 90px;
-            background: #f1f5f9;
-            border: 2px solid var(--accent-primary);
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 0.8rem;
-            color: var(--accent-primary);
-            font-weight: 700;
-            box-shadow: 0 0 20px rgba(0, 204, 106, 0.2);
-        }
-
-        .profile-name {
-            font-size: 1.8rem;
-            font-weight: 800;
-            color: var(--text-main);
-        }
-
-        .profile-university {
-            font-size: 0.95rem;
-            color: var(--accent-primary);
-            margin-top: 5px;
-            font-weight: 600;
-        }
-
-        /* Gakuchika */
-        .full-width {
-            grid-column: 1 / -1;
-        }
-
-        .card-title {
-            font-size: 2rem;
-            font-weight: 800;
-            margin-bottom: 24px;
-            color: var(--text-main);
-        }
-
-        .gakuchika-text {
-            font-size: 1.05rem;
-            color: var(--text-main);
-            line-height: 1.9;
-        }
-
-        .highlight {
-            background: linear-gradient(180deg, transparent 60%, var(--accent-secondary) 60%);
-            font-weight: 700;
-            color: var(--text-main);
-            padding: 0 2px;
-        }
-
-        /* --- Skills --- */
-        .skills-container {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 12px;
-            justify-content: center;
-        }
-
-        .skill-tag {
-            background: #fff;
-            border: 1px solid #e2e8f0;
-            padding: 10px 24px;
-            border-radius: 50px;
-            font-size: 0.9rem;
-            font-weight: 600;
-            color: var(--text-sub);
-            transition: 0.3s;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.03);
-        }
-
-        .skill-tag:hover {
-            background: var(--accent-secondary);
-            border-color: var(--accent-secondary);
-            color: #1a202c; /* ライム背景なので文字は濃く */
-            box-shadow: 0 5px 15px rgba(204, 255, 0, 0.4);
-            transform: scale(1.05);
-        }
-
-        /* --- Works Section --- */
-        .works-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-            gap: 30px;
-        }
-
-        .work-item {
-            background-color: #fff;
-            border: 1px solid rgba(0,0,0,0.05);
-            border-radius: 20px;
-            overflow: hidden;
-            transition: transform 0.4s ease, box-shadow 0.4s ease;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.03);
-        }
-
-        .work-item:hover {
-            transform: translateY(-8px);
-            box-shadow: 0 20px 40px rgba(0, 204, 106, 0.15);
-        }
-
-        .work-thumb {
-            height: 220px;
-            background: #f1f5f9; /* 明るいグレー */
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: var(--text-sub);
-            font-weight: 700;
-            font-size: 1.2rem;
+            background: #000;
+            color: #fff;
+            font-weight: 500;
+            font-size: 1rem;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
             position: relative;
             overflow: hidden;
         }
         
-        /* サムネイルのホバーエフェクト（グラデーションオーバーレイ） */
-        .work-thumb::after {
-            content: '';
-            position: absolute;
-            inset: 0;
-            background: linear-gradient(135deg, rgba(0, 204, 106, 0.1), rgba(204, 255, 0, 0.1));
-            opacity: 0;
-            transition: 0.3s;
-        }
-        
-        .work-item:hover .work-thumb::after {
-            opacity: 1;
-        }
-
-        .work-info {
-            padding: 30px;
-        }
-
-        .work-category {
-            font-size: 0.75rem;
-            color: var(--accent-primary);
-            font-weight: 800;
-            text-transform: uppercase;
-            letter-spacing: 0.1em;
-            margin-bottom: 8px;
-            background: rgba(0, 204, 106, 0.1);
-            display: inline-block;
-            padding: 4px 12px;
-            border-radius: 12px;
-        }
-
-        .work-title {
-            font-size: 1.4rem;
-            font-weight: 800;
-            margin-bottom: 10px;
-            color: var(--text-main);
-        }
-
-        .work-desc {
-            font-size: 0.95rem;
-            color: var(--text-sub);
-        }
-
-        /* --- Footer --- */
-        footer {
-            background-color: #fff;
-            color: var(--text-main);
-            text-align: center;
-            padding: 80px 0 40px;
-            font-size: 0.9rem;
-            border-top: 1px solid rgba(0,0,0,0.05);
-            position: relative;
-        }
-        
-        /* フッター上部のグラデーションライン */
-        footer::before {
+        .hero-btn::before {
             content: '';
             position: absolute;
             top: 0;
             left: 0;
             width: 100%;
-            height: 3px;
-            background: var(--gradient-text);
+            height: 100%;
+            background: linear-gradient(90deg, var(--accent-lime), var(--accent-green));
+            opacity: 0;
+            transition: opacity 0.4s;
+            z-index: 0;
+        }
+        
+        .hero-btn span {
+            position: relative;
+            z-index: 1;
         }
 
-        footer a {
-            transition: 0.3s;
+        .hero-btn:hover {
+            transform: scale(1.05);
+            box-shadow: 0 15px 30px rgba(0,0,0,0.15);
+            color: #000;
+        }
+        
+        .hero-btn:hover::before {
+            opacity: 1;
         }
 
-        footer a:hover {
-            color: var(--accent-primary);
-            text-shadow: 0 0 10px var(--accent-secondary);
+        /* --- About / Bento Grid --- */
+        .section-title {
+            font-size: 2.5rem;
+            font-weight: 700;
+            text-align: center;
+            margin-bottom: 60px;
+            letter-spacing: -0.02em;
         }
 
-        /* --- Mobile Responsive --- */
+        .bento-grid {
+            display: grid;
+            grid-template-columns: 1.2fr 0.8fr; /* 左を広めに */
+            gap: 24px;
+        }
+        
+        .card-lg { grid-row: span 2; }
+        .full-width { grid-column: 1 / -1; }
+
+        .glass-card {
+            padding: 40px;
+            transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1); /* Apple風のバウンス */
+        }
+        
+        .glass-card:hover {
+            transform: scale(1.02);
+            background: rgba(255, 255, 255, 0.75); /* ホバーで少し不透明に */
+        }
+
+        /* Profile Layout */
+        .profile-flex {
+            display: flex;
+            align-items: flex-start;
+            gap: 24px;
+            flex-direction: column;
+        }
+
+        .profile-img {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #e0e0e0, #fff);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            color: var(--accent-green);
+            box-shadow: inset 0 4px 10px rgba(0,0,0,0.05); /* インナーシャドウで凹み */
+        }
+
+        .h3-title {
+            font-size: 1.4rem;
+            font-weight: 700;
+            margin-bottom: 10px;
+            letter-spacing: -0.01em;
+        }
+
+        .p-text {
+            color: var(--text-sub);
+            font-size: 1rem;
+            line-height: 1.7;
+        }
+
+        /* Skills Chips */
+        .skills-wrapper {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-top: 20px;
+        }
+
+        .skill-chip {
+            background: rgba(255, 255, 255, 0.5);
+            border: 1px solid rgba(0,0,0,0.05);
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: var(--text-main);
+            backdrop-filter: blur(10px);
+        }
+
+        /* Gakuchika Text Highlighting */
+        .highlight-text {
+            background: linear-gradient(90deg, rgba(212, 242, 56, 0.3), rgba(52, 199, 89, 0.1));
+            padding: 0 4px;
+            border-radius: 4px;
+            color: #1a1a1a;
+            font-weight: 600;
+        }
+
+        /* --- Works (Cards like App Icons) --- */
+        .works-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 30px;
+        }
+
+        .work-card {
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+            group: work-group; /* グループ化用（概念） */
+        }
+
+        .work-visual {
+            aspect-ratio: 4/3;
+            background: linear-gradient(135deg, #f0f0f5, #ffffff);
+            border-radius: 24px;
+            border: 1px solid rgba(255,255,255,0.6);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            font-size: 1.2rem;
+            color: #d1d1d6;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.04);
+            transition: all 0.4s ease;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        /* 液体のような反射アニメーション */
+        .work-visual::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255,255,255,0.8) 0%, transparent 60%);
+            opacity: 0;
+            transform: scale(0.5);
+            transition: opacity 0.4s, transform 0.4s;
+        }
+
+        .work-card:hover .work-visual {
+            transform: translateY(-8px) scale(1.02);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+        }
+        
+        .work-card:hover .work-visual::before {
+            opacity: 1;
+            transform: scale(1);
+        }
+
+        .work-meta h3 {
+            font-size: 1.1rem;
+            font-weight: 700;
+            margin-bottom: 4px;
+        }
+
+        .work-meta p {
+            font-size: 0.9rem;
+            color: var(--text-sub);
+        }
+
+        /* --- Footer --- */
+        footer {
+            text-align: center;
+            padding: 80px 0 40px;
+            color: var(--text-sub);
+            font-size: 0.85rem;
+        }
+        
+        .footer-link {
+            font-size: 1.2rem;
+            font-weight: 600;
+            color: var(--text-main);
+            display: inline-block;
+            margin-bottom: 20px;
+        }
+        
+        .footer-link:hover {
+            color: var(--accent-green);
+        }
+
+        /* Responsive */
         @media (max-width: 768px) {
-            .hero-content h1 {
-                font-size: 3.5rem;
-            }
-
-            .bento-grid {
-                grid-template-columns: 1fr;
-            }
+            .hero-content h1 { font-size: 3.2rem; }
+            .bento-grid { grid-template-columns: 1fr; }
+            .works-grid { grid-template-columns: 1fr; }
             
-            nav ul {
-                display: none; 
-            }
+            nav { display: none; }
+            .nav-island { justify-content: center; }
             
-            .card {
-                padding: 30px;
-            }
-            
-            body {
-                background-size: 20px 20px; /* モバイルではグリッドを細かく */
-            }
+            .orb { opacity: 0.4; } /* モバイルは少し薄くして視認性確保 */
         }
     </style>
 </head>
 <body>
 
+    <div class="liquid-bg">
+        <div class="orb orb-1"></div>
+        <div class="orb orb-2"></div>
+        <div class="orb orb-3"></div>
+    </div>
+
     <header>
-        <div class="container" style="display: flex; justify-content: space-between; align-items: center; width: 100%;">
-            <div class="logo">RYUICHI</div>
+        <div class="container nav-island">
+            <div class="logo">Ryuichi.</div>
             <nav>
                 <ul>
                     <li><a href="#about">About</a></li>
@@ -525,92 +480,101 @@
     </header>
 
     <section id="hero">
-        <div class="hero-content">
-            <h1>Ryuichi Saito<span style="color:var(--accent-primary)">.</span></h1>
-            <p style="margin-bottom: 10px; font-weight:600;">Applied Informatics Student</p>
-            <p style="font-size: 1rem; opacity: 0.7;">Designing Logic & Future Interfaces</p>
-            <a href="#about" class="hero-btn">Explore Profile</a>
+        <div class="container hero-content">
+            <h1>Designed Logic.<br>Liquid Interface.</h1>
+            <p>Applied Informatics Student. Bridging Calculus and User Experience.</p>
+            <a href="#about" class="hero-btn"><span>View Profile</span></a>
         </div>
     </section>
 
     <section id="about" class="container">
-        <h2 class="section-title">About Me<span>プロフィール</span></h2>
+        <h2 class="section-title">About Me</h2>
         
         <div class="bento-grid">
-            <div class="card">
-                <div class="profile-header">
-                    <div class="profile-img-placeholder">IMG</div>
+            <div class="glass-card card-lg profile-flex">
+                <div style="display:flex; align-items:center; gap:20px;">
+                    <div class="profile-img">img</div>
                     <div>
-                        <h3 class="profile-name">齋藤　龍一</h3>
-                        <p class="profile-university">日本大学 理工学部<br>応用情報工学科 1年生</p>
+                        <h3 class="h3-title" style="margin:0;">齋藤 龍一</h3>
+                        <p style="color:var(--accent-green); font-weight:600; font-size:0.9rem;">日本大学 理工学部</p>
                     </div>
                 </div>
-                <p style="color: var(--text-sub); line-height: 1.8;">
-                    ロジックとデザインの融合を追求。<br>
-                    C言語や物理で培った論理的思考を、クリーンで使いやすいWebやアプリのUI/UXに落とし込むことを目指しています。
+                <div class="p-text">
+                    <p>
+                        ロジックとデザインの融合を追求。<br>
+                        物理学とC言語で培った厳密な論理思考を、直感的で美しいインターフェースへと昇華させることを目指しています。
+                    </p>
+                    <p style="margin-top:16px;">
+                        複雑な情報を「透明な水」のように整理し、ユーザーが意識せずに使える体験を設計します。
+                    </p>
+                </div>
+                
+                <div style="margin-top:auto;">
+                    <p style="font-size:0.8rem; color:var(--text-sub); margin-bottom:10px; font-weight:600;">TECHNICAL STACK</p>
+                    <div class="skills-wrapper">
+                        <div class="skill-chip">C Language</div>
+                        <div class="skill-chip">Python</div>
+                        <div class="skill-chip">Physics</div>
+                        <div class="skill-chip">UI Design</div>
+                        <div class="skill-chip">HTML/CSS</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="glass-card" style="display:flex; flex-direction:column;">
+                <h3 class="h3-title">Process Optimization</h3>
+                <p class="p-text" style="font-size:0.95rem;">
+                    物流倉庫でのアルバイト経験において、<span class="highlight-text">空間充填率の最大化</span>に取り組みました。
+                    不揃いな商品をカテゴリー別にグルーピングし、パズルのように組み合わせるアルゴリズム的なルールを導入。
+                    結果として搬送効率を劇的に改善しました。
                 </p>
             </div>
 
-            <div class="card" style="display: flex; flex-direction: column; justify-content: center; align-items: center;">
-                <h3 style="font-size: 1.1rem; margin-bottom: 25px; text-align: center; color:var(--text-sub); letter-spacing:0.1em; font-weight:700;">CORE COMPETENCIES</h3>
-                <div class="skills-container">
-                    <div class="skill-tag">C Lang</div>
-                    <div class="skill-tag">Python</div>
-                    <div class="skill-tag">HTML/CSS</div>
-                    <div class="skill-tag">Physics</div>
-                    <div class="skill-tag">Calculus</div>
-                    <div class="skill-tag">Kaizen</div>
-                </div>
-            </div>
-
-            <div class="card full-width">
-                <h3 class="card-title">Process Optimization.</h3>
-                <div class="gakuchika-text">
-                    <p>
-                        高校2年生の時、物流倉庫の仕分け業務において<span class="highlight">作業プロセスの効率化</span>を実行しました。<br><br>
-                        商品は形状が不揃いで、無作為な積み上げによる空間のロスが発生していました。そこで「空間充填率の最大化」を課題とし、類似形状のグルーピングと、小物類を定型ボックスへ集約するアルゴリズム的なルールを現場に導入しました。<br><br>
-                        結果、ラックへの積載効率が向上し、搬送回数の削減に成功。この経験は、現在のプログラミングにおけるメモリ管理や効率的な処理フローの設計思想にも通じています。
-                    </p>
+            <div class="glass-card" style="display:flex; align-items:center; justify-content:center; text-align:center;">
+                <div>
+                    <h3 class="h3-title" style="font-size:3rem; line-height:1; background: linear-gradient(135deg, var(--accent-lime), var(--accent-green)); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">1st</h3>
+                    <p style="font-weight:600; margin-top:10px;">Grade Student</p>
+                    <p style="font-size:0.8rem; color:var(--text-sub);">Applied Information Science</p>
                 </div>
             </div>
         </div>
     </section>
 
     <section id="works" class="container">
-        <h2 class="section-title">Works<span>制作実績</span></h2>
+        <h2 class="section-title">Selected Works</h2>
         <div class="works-grid">
-            <div class="work-item">
-                <div class="work-thumb">Web Design</div>
-                <div class="work-info">
-                    <div class="work-category">Project 01</div>
-                    <h3 class="work-title">架空のカフェサイト</h3>
-                    <p class="work-desc">清潔感のある白ベースのレスポンシブデザイン。</p>
+            
+            <a href="#" class="work-card">
+                <div class="work-visual">Cafe Site</div>
+                <div class="work-meta">
+                    <h3>Clean Cafe UI</h3>
+                    <p>White-space oriented design.</p>
                 </div>
-            </div>
-            <div class="work-item">
-                <div class="work-thumb">Graphic</div>
-                <div class="work-info">
-                    <div class="work-category">Project 02</div>
-                    <h3 class="work-title">バナー模写</h3>
-                    <p class="work-desc">Photoshopを使用した精密なトレースと色彩補正。</p>
+            </a>
+
+            <a href="#" class="work-card">
+                <div class="work-visual">Banner</div>
+                <div class="work-meta">
+                    <h3>Graphic Trace</h3>
+                    <p>Pixel-perfect reproduction.</p>
                 </div>
-            </div>
-            <div class="work-item">
-                <div class="work-thumb">Portfolio</div>
-                <div class="work-info">
-                    <div class="work-category">Project 03</div>
-                    <h3 class="work-title">現ポートフォリオ</h3>
-                    <p class="work-desc">ホワイト＆蛍光グリーンを基調としたTech系デザインの実装。</p>
+            </a>
+
+            <a href="#" class="work-card">
+                <div class="work-visual">Portfolio</div>
+                <div class="work-meta">
+                    <h3>Liquid Glass</h3>
+                    <p>Current site design system.</p>
                 </div>
-            </div>
+            </a>
+
         </div>
     </section>
 
     <footer>
         <div class="container">
-            <p style="font-weight: 800; font-size: 1.5rem; color: var(--text-main); margin-bottom: 15px; letter-spacing: 0.05em;">GET IN TOUCH</p>
-            <p><a href="mailto:csri25039@g.nihon-u.ac.jp" style="color: var(--accent-primary); font-size:1.2rem; font-weight:600;">csri25039@g.nihon-u.ac.jp</a></p>
-            <p style="margin-top: 40px; color: var(--text-sub); font-size:0.8rem;">Copyright &copy; 2025 Ryuichi Saito. All rights reserved.</p>
+            <a href="mailto:csri25039@g.nihon-u.ac.jp" class="footer-link">csri25039@g.nihon-u.ac.jp</a>
+            <p>&copy; 2025 Ryuichi Saito. Designed with Logic & Liquid.</p>
         </div>
     </footer>
 
