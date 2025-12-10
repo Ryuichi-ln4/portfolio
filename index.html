@@ -56,7 +56,7 @@
             right: -100px;
             width: 600px;
             height: 600px;
-            background: radial-gradient(circle, rgba(190, 242, 100, 0.2), transparent 70%); /* ライム */
+            background: radial-gradient(circle, rgba(190, 242, 100, 0.2), transparent 70%);
             border-radius: 50%;
         }
 
@@ -65,7 +65,7 @@
             left: -50px;
             width: 300px;
             height: 300px;
-            border: 2px solid rgba(107, 114, 128, 0.1); /* シルバー枠 */
+            border: 2px solid rgba(107, 114, 128, 0.1);
             transform: rotate(15deg);
         }
 
@@ -76,7 +76,7 @@
             height: 0;
             border-left: 100px solid transparent;
             border-right: 100px solid transparent;
-            border-bottom: 170px solid rgba(190, 242, 100, 0.15); /* ライム */
+            border-bottom: 170px solid rgba(190, 242, 100, 0.15);
             transform: rotate(-15deg);
         }
 
@@ -129,8 +129,7 @@
         
         nav a:hover { color: var(--text-main); }
 
-        /* --- MAIN PROFILE SECTION (The Core) --- */
-        /* ヒーローエリアとプロフィールを統合し、サイトの「顔」とする */
+        /* --- MAIN PROFILE SECTION --- */
         .main-profile-wrapper {
             margin: 40px 0 100px;
         }
@@ -141,7 +140,7 @@
             border-radius: 24px;
             overflow: hidden;
             display: grid;
-            grid-template-columns: 1.2fr 1.8fr; /* 左:右 = 1.2:1.8 */
+            grid-template-columns: 1.2fr 1.8fr;
             box-shadow: 0 20px 40px rgba(0, 0, 0, 0.03);
         }
 
@@ -159,13 +158,19 @@
             height: 120px;
             background: #fff;
             border: 4px solid var(--lime-accent);
-            border-radius: 50%;
+            border-radius: 50%; /* 枠を丸く */
+            margin-bottom: 24px;
+            overflow: hidden; /* 画像がはみ出ないようにする */
             display: flex;
             align-items: center;
             justify-content: center;
-            font-weight: bold;
-            color: var(--text-sub);
-            margin-bottom: 24px;
+        }
+
+        /* ★ここが重要：中の画像をきれいに収めるCSS */
+        .profile-photo img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover; /* 画像の比率を崩さずトリミング */
         }
 
         .my-name {
@@ -186,7 +191,7 @@
         }
 
         .contact-btn {
-            margin-top: auto; /* 一番下に配置 */
+            margin-top: auto;
             display: inline-flex;
             align-items: center;
             justify-content: center;
@@ -225,7 +230,6 @@
             margin-bottom: 30px;
         }
 
-        /* Gakuchika Box */
         .gakuchika-box {
             background: #f9fafb;
             border-left: 4px solid var(--lime-accent);
@@ -312,17 +316,19 @@
             color: #9ca3af;
             font-weight: 700;
             position: relative;
+            overflow: hidden; /* 画像はみ出し防止 */
         }
         
-        /* サムネイルに幾何学模様 */
-        .work-img::before {
-            content: '';
-            position: absolute;
-            width: 40px;
-            height: 40px;
-            border: 2px solid #fff;
-            border-radius: 50%;
-            opacity: 0.5;
+        /* Works用画像CSS */
+        .work-img img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+        
+        .work-card:hover .work-img img {
+            transform: scale(1.1);
         }
 
         .work-content {
@@ -396,7 +402,9 @@
         <section class="main-profile-wrapper">
             <div class="id-card">
                 <div class="id-left">
-                    <div class="profile-photo">IMG</div>
+                    <div class="profile-photo">
+                        <img src="images/profile.png" alt="プロフィール写真">
+                    </div>
                     <h1 class="my-name">齋藤 龍一</h1>
                     <p class="my-role">Applied Informatics Student</p>
                     <p style="color:var(--text-sub); font-size:0.9rem; margin-bottom:20px;">
@@ -439,7 +447,9 @@
             <div class="works-grid">
                 
                 <a href="#" class="work-card">
-                    <div class="work-img">Web Site</div>
+                    <div class="work-img">
+                        <img src="https://placehold.co/600x400/e5e7eb/6b7280?text=Web+Design" alt="架空のカフェサイト">
+                    </div>
                     <div class="work-content">
                         <p class="work-cat">Coding</p>
                         <h3 class="work-title">架空のカフェサイト</h3>
@@ -448,7 +458,9 @@
                 </a>
 
                 <a href="#" class="work-card">
-                    <div class="work-img">Graphic</div>
+                    <div class="work-img">
+                        <img src="https://placehold.co/600x400/e5e7eb/6b7280?text=Graphic" alt="バナー模写">
+                    </div>
                     <div class="work-content">
                         <p class="work-cat">Design</p>
                         <h3 class="work-title">バナー模写・トレース</h3>
@@ -457,7 +469,9 @@
                 </a>
 
                 <a href="#" class="work-card">
-                    <div class="work-img">Portfolio</div>
+                    <div class="work-img">
+                        <img src="https://placehold.co/600x400/e5e7eb/6b7280?text=Portfolio" alt="ポートフォリオ">
+                    </div>
                     <div class="work-content">
                         <p class="work-cat">Self Branding</p>
                         <h3 class="work-title">ポートフォリオサイト</h3>
