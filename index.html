@@ -6,18 +6,21 @@
     <title>Ryuichi Saito | Portfolio</title>
     
     <style>
-        /* --- CSS Variables & Reset --- */
+        /* --- CSS Variables --- */
         :root {
-            /* Colors */
-            --bg-color: #f8fafc;       /* ベースの薄いグレー */
-            --card-bg: #ffffff;        /* コンテンツ背景（白） */
-            --text-main: #1e293b;      /* 濃いグレー（読みやすい黒） */
-            --text-sub: #64748b;       /* 薄いグレー */
+            /* Base Colors */
+            --bg-body: #f3f4f6;       /* シルバーがかった白 */
+            --card-bg: #ffffff;
             
-            --primary: #2563eb;        /* 知的なブルー */
-            --secondary: #10b981;      /* アクセントのミントグリーン */
+            /* Text Colors */
+            --text-main: #111827;     /* ほぼ黒 */
+            --text-sub: #6b7280;      /* メタリックなグレー */
             
-            --gradient-shape: linear-gradient(135deg, #2563eb 0%, #06b6d4 100%);
+            /* Accents */
+            --lime-accent: #bef264;   /* フレッシュなライムグリーン */
+            --lime-vivid: #84cc16;    /* 文字用の濃いライム */
+            --silver-border: #d1d5db; /* シルバーの枠線 */
+            --silver-gradient: linear-gradient(135deg, #f9fafb 0%, #e5e7eb 100%);
             
             --font-base: "Helvetica Neue", Arial, "Hiragino Kaku Gothic ProN", "Hiragino Sans", Meiryo, sans-serif;
         }
@@ -31,100 +34,60 @@
         body {
             font-family: var(--font-base);
             color: var(--text-main);
-            background-color: var(--bg-color);
+            background-color: var(--bg-body);
             line-height: 1.7;
-            /* 背景：幾何学的なグリッド（方眼紙） */
+            /* 背景：テクニカルな方眼紙グリッド */
             background-image: 
-                linear-gradient(rgba(200, 210, 230, 0.4) 1px, transparent 1px),
-                linear-gradient(90deg, rgba(200, 210, 230, 0.4) 1px, transparent 1px);
-            background-size: 50px 50px; /* グリッドのサイズ */
+                linear-gradient(rgba(156, 163, 175, 0.2) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(156, 163, 175, 0.2) 1px, transparent 1px);
+            background-size: 40px 40px;
             overflow-x: hidden;
-            position: relative;
         }
 
-        a {
-            text-decoration: none;
-            color: inherit;
-            transition: opacity 0.3s;
-        }
-
-        a:hover {
-            opacity: 0.7;
-        }
-
-        /* --- Geometric Background Shapes --- */
-        /* 背景に浮遊する幾何学図形 */
+        /* --- Geometric Background Shapes (Lime & Silver) --- */
         .geo-shape {
             position: fixed;
             z-index: -1;
-            opacity: 0.6;
+            pointer-events: none;
         }
 
-        /* 右上の円 */
         .shape-circle {
-            top: -5%;
-            right: -5%;
-            width: 500px;
-            height: 500px;
-            background: radial-gradient(circle, rgba(37, 99, 235, 0.15), transparent 70%);
+            top: -100px;
+            right: -100px;
+            width: 600px;
+            height: 600px;
+            background: radial-gradient(circle, rgba(190, 242, 100, 0.2), transparent 70%); /* ライム */
             border-radius: 50%;
         }
 
-        /* 左中央の三角形（CSSで描画） */
-        .shape-triangle {
-            top: 40%;
-            left: -5%;
-            width: 0;
-            height: 0;
-            border-left: 150px solid transparent;
-            border-right: 150px solid transparent;
-            border-bottom: 260px solid rgba(16, 185, 129, 0.08);
-            transform: rotate(35deg);
-        }
-
-        /* 下部の四角形 */
         .shape-square {
-            bottom: -10%;
-            right: 20%;
+            bottom: 10%;
+            left: -50px;
             width: 300px;
             height: 300px;
-            background: linear-gradient(135deg, rgba(6, 182, 212, 0.1), transparent);
+            border: 2px solid rgba(107, 114, 128, 0.1); /* シルバー枠 */
             transform: rotate(15deg);
-            border-radius: 40px;
+        }
+
+        .shape-triangle {
+            top: 40%;
+            right: 10%;
+            width: 0;
+            height: 0;
+            border-left: 100px solid transparent;
+            border-right: 100px solid transparent;
+            border-bottom: 170px solid rgba(190, 242, 100, 0.15); /* ライム */
+            transform: rotate(-15deg);
         }
 
         /* --- Layout --- */
         .container {
-            max-width: 960px;
+            max-width: 1000px;
             margin: 0 auto;
             padding: 0 24px;
         }
 
-        section {
-            padding: 100px 0;
-        }
-
-        /* タイトルデザイン */
-        .section-header {
-            text-align: center;
-            margin-bottom: 60px;
-        }
-
-        .section-title {
-            font-size: 2.5rem;
-            font-weight: 800;
-            color: var(--text-main);
-            letter-spacing: 0.05em;
-            margin-bottom: 10px;
-        }
-
-        .section-subtitle {
-            font-size: 0.9rem;
-            color: var(--primary);
-            font-weight: 700;
-            text-transform: uppercase;
-            letter-spacing: 0.1em;
-        }
+        a { text-decoration: none; color: inherit; transition: 0.3s; }
 
         /* --- Header --- */
         header {
@@ -132,339 +95,384 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            background: rgba(255, 255, 255, 0.9); /* 読みやすさ重視 */
-            backdrop-filter: blur(10px);
-            position: sticky;
-            top: 0;
-            z-index: 100;
-            border-bottom: 1px solid rgba(0,0,0,0.05);
         }
 
         .logo {
             font-weight: 800;
             font-size: 1.2rem;
-            color: var(--text-main);
+            letter-spacing: 0.05em;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .logo::before {
+            content: '';
+            display: block;
+            width: 12px;
+            height: 12px;
+            background: var(--lime-accent);
+            border-radius: 2px;
         }
 
         nav ul {
             display: flex;
-            gap: 30px;
+            gap: 20px;
             list-style: none;
         }
-
+        
         nav a {
             font-size: 0.9rem;
-            font-weight: 600;
             color: var(--text-sub);
+            font-weight: 600;
         }
         
-        nav a:hover {
-            color: var(--primary);
+        nav a:hover { color: var(--text-main); }
+
+        /* --- MAIN PROFILE SECTION (The Core) --- */
+        /* ヒーローエリアとプロフィールを統合し、サイトの「顔」とする */
+        .main-profile-wrapper {
+            margin: 40px 0 100px;
         }
 
-        /* --- Hero --- */
-        #hero {
-            height: 80vh; /* 少しコンパクトに */
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            text-align: center;
-        }
-
-        .hero-title {
-            font-size: 4rem;
-            font-weight: 900;
-            line-height: 1.1;
-            margin-bottom: 20px;
-            background: linear-gradient(135deg, var(--text-main) 30%, var(--primary) 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-        }
-
-        .hero-desc {
-            font-size: 1.2rem;
-            color: var(--text-sub);
-            margin-bottom: 40px;
-            font-weight: 500;
-        }
-
-        .btn-primary {
-            display: inline-block;
-            background: var(--primary);
-            color: #fff;
-            padding: 12px 32px;
-            border-radius: 6px;
-            font-weight: 600;
-            box-shadow: 0 4px 15px rgba(37, 99, 235, 0.3);
-            transition: transform 0.2s, box-shadow 0.2s;
-        }
-        
-        .btn-primary:hover {
-            opacity: 1; /* ホバー時のopacity変化を無効化 */
-            transform: translateY(-2px);
-            box-shadow: 0 6px 20px rgba(37, 99, 235, 0.4);
-        }
-
-        /* --- Card Styles (Clean & Simple) --- */
-        .card {
+        .id-card {
             background: var(--card-bg);
-            border-radius: 16px;
-            padding: 40px;
-            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.04); /* 薄い影 */
-            border: 1px solid rgba(0,0,0,0.03);
-        }
-
-        /* --- About Grid --- */
-        .about-grid {
+            border: 1px solid var(--silver-border);
+            border-radius: 24px;
+            overflow: hidden;
             display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 30px;
-        }
-        
-        .full-width {
-            grid-column: 1 / -1;
+            grid-template-columns: 1.2fr 1.8fr; /* 左:右 = 1.2:1.8 */
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.03);
         }
 
-        /* Profile Info */
-        .profile-flex {
+        /* 左側：ID情報 */
+        .id-left {
+            background: var(--silver-gradient);
+            padding: 50px 40px;
             display: flex;
-            align-items: center;
-            gap: 20px;
-            margin-bottom: 20px;
+            flex-direction: column;
+            border-right: 1px solid var(--silver-border);
         }
-        
-        .profile-icon {
-            width: 80px;
-            height: 80px;
-            background: #f1f5f9;
+
+        .profile-photo {
+            width: 120px;
+            height: 120px;
+            background: #fff;
+            border: 4px solid var(--lime-accent);
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
             font-weight: bold;
-            color: var(--primary);
-            font-size: 0.8rem;
+            color: var(--text-sub);
+            margin-bottom: 24px;
         }
 
-        .skills-list {
+        .my-name {
+            font-size: 2.2rem;
+            font-weight: 800;
+            line-height: 1.1;
+            margin-bottom: 10px;
+            letter-spacing: -0.02em;
+        }
+
+        .my-role {
+            font-size: 0.95rem;
+            color: var(--lime-vivid);
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            margin-bottom: 24px;
+        }
+
+        .contact-btn {
+            margin-top: auto; /* 一番下に配置 */
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            background: var(--text-main);
+            color: #fff;
+            padding: 14px 24px;
+            border-radius: 8px;
+            font-weight: 600;
+        }
+        
+        .contact-btn:hover {
+            background: var(--lime-vivid);
+            color: #fff;
+        }
+
+        /* 右側：詳細・スキル */
+        .id-right {
+            padding: 50px 40px;
+            background: #fff;
+        }
+
+        .section-label {
+            display: inline-block;
+            font-size: 0.75rem;
+            background: #f3f4f6;
+            padding: 4px 12px;
+            border-radius: 20px;
+            color: var(--text-sub);
+            font-weight: 700;
+            margin-bottom: 15px;
+            border: 1px solid #e5e7eb;
+        }
+
+        .intro-text {
+            font-size: 1.05rem;
+            margin-bottom: 30px;
+        }
+
+        /* Gakuchika Box */
+        .gakuchika-box {
+            background: #f9fafb;
+            border-left: 4px solid var(--lime-accent);
+            padding: 20px;
+            margin-bottom: 30px;
+            border-radius: 0 8px 8px 0;
+        }
+        
+        .gakuchika-title {
+            font-weight: 700;
+            font-size: 1rem;
+            margin-bottom: 8px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        /* Skills */
+        .skills-grid {
             display: flex;
             flex-wrap: wrap;
             gap: 10px;
-            margin-top: 15px;
         }
 
-        .skill-item {
+        .skill-tag {
             font-size: 0.85rem;
-            background: #f0fdf4; /* 薄いグリーン */
-            color: #15803d;
-            padding: 6px 14px;
-            border-radius: 20px;
+            padding: 8px 16px;
+            border-radius: 6px;
             font-weight: 600;
-            border: 1px solid #dcfce7;
+            background: #fff;
+            border: 1px solid var(--silver-border);
+            color: var(--text-main);
+        }
+        
+        .skill-tag.highlight {
+            background: var(--lime-accent);
+            border-color: var(--lime-accent);
+            color: #1a2e05;
         }
 
-        /* Tech系スキルは青色に */
-        .skill-item.tech {
-            background: #eff6ff;
-            color: #1d4ed8;
-            border-color: #dbeafe;
+        /* --- Works Section --- */
+        .section-title {
+            font-size: 1.8rem;
+            font-weight: 800;
+            margin-bottom: 30px;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+        
+        .section-title::after {
+            content: '';
+            flex: 1;
+            height: 1px;
+            background: var(--silver-border);
         }
 
-        /* --- Works Grid --- */
         .works-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 30px;
+            gap: 24px;
         }
 
         .work-card {
-            background: var(--card-bg);
-            border-radius: 16px;
+            background: #fff;
+            border: 1px solid var(--silver-border);
+            border-radius: 12px;
             overflow: hidden;
-            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.04);
-            border: 1px solid rgba(0,0,0,0.03);
-            transition: transform 0.3s ease;
+            transition: transform 0.3s, box-shadow 0.3s;
         }
-
+        
         .work-card:hover {
-            transform: translateY(-5px);
+            transform: translateY(-4px);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.05);
+            border-color: var(--lime-accent);
         }
 
-        .work-thumb {
-            height: 180px;
-            background: #e2e8f0;
+        .work-img {
+            height: 160px;
+            background: #e5e7eb;
             display: flex;
             align-items: center;
             justify-content: center;
-            color: var(--text-sub);
-            font-weight: bold;
+            color: #9ca3af;
+            font-weight: 700;
             position: relative;
         }
         
-        /* サムネイルに幾何学模様アクセント */
-        .work-thumb::after {
+        /* サムネイルに幾何学模様 */
+        .work-img::before {
             content: '';
             position: absolute;
-            width: 100%;
-            height: 100%;
-            background-image: radial-gradient(#cbd5e1 1px, transparent 1px);
-            background-size: 20px 20px;
+            width: 40px;
+            height: 40px;
+            border: 2px solid #fff;
+            border-radius: 50%;
             opacity: 0.5;
         }
 
-        .work-body {
-            padding: 24px;
+        .work-content {
+            padding: 20px;
         }
 
         .work-cat {
             font-size: 0.75rem;
-            color: var(--secondary);
+            color: var(--lime-vivid);
             font-weight: 700;
             text-transform: uppercase;
-            letter-spacing: 0.05em;
         }
 
         .work-title {
             font-size: 1.1rem;
             font-weight: 700;
-            margin: 5px 0 10px;
-        }
-
-        .work-desc {
-            font-size: 0.9rem;
-            color: var(--text-sub);
-            line-height: 1.6;
+            margin: 5px 0;
         }
 
         /* --- Footer --- */
         footer {
+            margin-top: 80px;
+            padding: 40px 0;
+            border-top: 1px solid var(--silver-border);
             text-align: center;
-            padding: 60px 0;
+            font-size: 0.85rem;
             color: var(--text-sub);
-            font-size: 0.9rem;
             background: #fff;
-            border-top: 1px solid #f1f5f9;
         }
 
-        /* Mobile */
+        /* --- Mobile Responsive --- */
         @media (max-width: 768px) {
-            .hero-title { font-size: 2.8rem; }
-            .about-grid { grid-template-columns: 1fr; }
-            nav { display: none; }
+            .id-card {
+                grid-template-columns: 1fr;
+            }
+            
+            .id-left {
+                border-right: none;
+                border-bottom: 1px solid var(--silver-border);
+                align-items: center;
+                text-align: center;
+            }
+            
+            .contact-btn {
+                margin-top: 20px;
+                width: 100%;
+            }
         }
-
     </style>
 </head>
 <body>
 
     <div class="geo-shape shape-circle"></div>
-    <div class="geo-shape shape-triangle"></div>
     <div class="geo-shape shape-square"></div>
+    <div class="geo-shape shape-triangle"></div>
 
     <header>
         <div class="container" style="display:flex; justify-content:space-between; align-items:center;">
             <div class="logo">RYUICHI.</div>
             <nav>
                 <ul>
-                    <li><a href="#about">About</a></li>
-                    <li><a href="#works">Works</a></li>
-                    <li><a href="mailto:csri25039@g.nihon-u.ac.jp">Contact</a></li>
+                    <li><a href="https://github.com/">GitHub</a></li>
+                    <li><a href="mailto:csri25039@g.nihon-u.ac.jp">Email</a></li>
                 </ul>
             </nav>
         </div>
     </header>
 
-    <section id="hero">
-        <div class="container">
-            <h1 class="hero-title">Logic & Design.</h1>
-            <p class="hero-desc">
-                日本大学 理工学部 応用情報工学科<br>
-                物理と情報の視点から、使いやすいUIを探求する。
-            </p>
-            <a href="#works" class="btn-primary">View My Works</a>
-        </div>
-    </section>
+    <main class="container">
+        
+        <section class="main-profile-wrapper">
+            <div class="id-card">
+                <div class="id-left">
+                    <div class="profile-photo">IMG</div>
+                    <h1 class="my-name">齋藤 龍一</h1>
+                    <p class="my-role">Applied Informatics Student</p>
+                    <p style="color:var(--text-sub); font-size:0.9rem; margin-bottom:20px;">
+                        日本大学 理工学部<br>応用情報工学科 1年生
+                    </p>
+                    <a href="mailto:csri25039@g.nihon-u.ac.jp" class="contact-btn">Contact Me</a>
+                </div>
 
-    <section id="about" class="container">
-        <div class="section-header">
-            <p class="section-subtitle">Who I am</p>
-            <h2 class="section-title">About Me</h2>
-        </div>
+                <div class="id-right">
+                    <span class="section-label">ABOUT ME</span>
+                    <p class="intro-text">
+                        C言語や物理学で培った「論理的思考」をベースに、Web制作やUIデザインに取り組んでいます。複雑なものをシンプルに整理し、機能美を追求することに情熱を持っています。
+                    </p>
 
-        <div class="about-grid">
-            <div class="card">
-                <div class="profile-flex">
-                    <div class="profile-icon">IMG</div>
-                    <div>
-                        <h3 style="font-size:1.4rem; font-weight:800;">齋藤 龍一</h3>
-                        <p style="color:var(--text-sub); font-size:0.9rem;">Ryuichi Saito</p>
+                    <div class="gakuchika-box">
+                        <div class="gakuchika-title">
+                            <span style="width:10px; height:10px; background:var(--lime-vivid); border-radius:50%; display:inline-block;"></span>
+                            Process Optimization
+                        </div>
+                        <p style="font-size:0.95rem; color:var(--text-sub);">
+                            物流倉庫でのアルバイトにて「空間充填率の最大化」に取り組みました。不揃いな荷物を形状ごとにグルーピングするルールを策定し、搬送効率を改善。現場のプロセス最適化（Kaizen）を経験しました。
+                        </p>
+                    </div>
+
+                    <span class="section-label">SKILL SET</span>
+                    <div class="skills-grid">
+                        <span class="skill-tag highlight">C Lang</span>
+                        <span class="skill-tag highlight">Python</span>
+                        <span class="skill-tag">HTML/CSS</span>
+                        <span class="skill-tag">Physics</span>
+                        <span class="skill-tag">Calculus</span>
+                        <span class="skill-tag">UI Design</span>
                     </div>
                 </div>
-                <p style="margin-bottom:20px;">
-                    C言語や物理学で培った「論理的思考」をベースに、Web制作やデザインに取り組んでいます。複雑なものをシンプルに整理し、美しく機能するインターフェースを作ることに情熱を持っています。
-                </p>
-                <div class="skills-list">
-                    <span class="skill-item tech">C Lang</span>
-                    <span class="skill-item tech">Python</span>
-                    <span class="skill-item tech">HTML/CSS</span>
-                    <span class="skill-item">Physics</span>
-                    <span class="skill-item">Calculus</span>
-                    <span class="skill-item">Kaizen</span>
-                </div>
             </div>
+        </section>
 
-            <div class="card" style="display:flex; flex-direction:column; justify-content:center;">
-                 <h3 style="font-size:1.2rem; font-weight:700; margin-bottom:15px; border-bottom:2px solid var(--secondary); display:inline-block; padding-bottom:5px;">Process Optimization</h3>
-                 <p style="font-size:0.95rem;">
-                    <strong>「空間充填率の最大化」への挑戦</strong><br><br>
-                    物流倉庫でのアルバイトにて、商品の積み込み効率を改善しました。不揃いな荷物を形状ごとにグルーピングし、パズルのように組み合わせるルールを考案。結果、搬送回数の削減に成功しました。<br>
-                    この経験から、効率的なアルゴリズムと現場での実用性のバランスを学びました。
-                 </p>
-            </div>
-        </div>
-    </section>
-
-    <section id="works" class="container">
-        <div class="section-header">
-            <p class="section-subtitle">Portfolio</p>
+        <section id="works">
             <h2 class="section-title">Selected Works</h2>
-        </div>
+            <div class="works-grid">
+                
+                <a href="#" class="work-card">
+                    <div class="work-img">Web Site</div>
+                    <div class="work-content">
+                        <p class="work-cat">Coding</p>
+                        <h3 class="work-title">架空のカフェサイト</h3>
+                        <p style="font-size:0.9rem; color:var(--text-sub);">ライムグリーンをアクセントにした清潔感のあるデザイン。</p>
+                    </div>
+                </a>
 
-        <div class="works-grid">
-            <a href="#" class="work-card">
-                <div class="work-thumb">Web Design</div>
-                <div class="work-body">
-                    <p class="work-cat">Coding</p>
-                    <h3 class="work-title">架空のカフェサイト</h3>
-                    <p class="work-desc">白を基調とした、清潔感のあるレスポンシブWebサイト。</p>
-                </div>
-            </a>
+                <a href="#" class="work-card">
+                    <div class="work-img">Graphic</div>
+                    <div class="work-content">
+                        <p class="work-cat">Design</p>
+                        <h3 class="work-title">バナー模写・トレース</h3>
+                        <p style="font-size:0.9rem; color:var(--text-sub);">Photoshopによる精密な色彩補正とレイアウト。</p>
+                    </div>
+                </a>
 
-            <a href="#" class="work-card">
-                <div class="work-thumb">Graphic</div>
-                <div class="work-body">
-                    <p class="work-cat">Design</p>
-                    <h3 class="work-title">バナー模写</h3>
-                    <p class="work-desc">Photoshopを使用し、プロの構成と配色を精密にトレース。</p>
-                </div>
-            </a>
+                <a href="#" class="work-card">
+                    <div class="work-img">Portfolio</div>
+                    <div class="work-content">
+                        <p class="work-cat">Self Branding</p>
+                        <h3 class="work-title">ポートフォリオサイト</h3>
+                        <p style="font-size:0.9rem; color:var(--text-sub);">現在のサイト。グリッドと幾何学を取り入れたシンプルな構成。</p>
+                    </div>
+                </a>
 
-            <a href="#" class="work-card">
-                <div class="work-thumb">Portfolio</div>
-                <div class="work-body">
-                    <p class="work-cat">Self Branding</p>
-                    <h3 class="work-title">ポートフォリオサイト</h3>
-                    <p class="work-desc">現在のサイト。グリッドと幾何学模様を取り入れたデザイン。</p>
-                </div>
-            </a>
-        </div>
-    </section>
+            </div>
+        </section>
+
+    </main>
 
     <footer>
         <div class="container">
-            <p style="margin-bottom:10px;">Get in Touch</p>
-            <a href="mailto:csri25039@g.nihon-u.ac.jp" style="font-size:1.2rem; font-weight:bold; color:var(--primary);">csri25039@g.nihon-u.ac.jp</a>
-            <p style="margin-top:30px; font-size:0.8rem;">&copy; 2025 Ryuichi Saito. All rights reserved.</p>
+            <p>&copy; 2025 Ryuichi Saito. Designed with Logic & Lime.</p>
         </div>
     </footer>
 
